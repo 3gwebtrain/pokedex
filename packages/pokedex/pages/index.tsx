@@ -1,17 +1,17 @@
-import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import { Inter } from "next/font/google";
 import Head from "next/head";
-import { PokedexSliceProps } from "pokedex@/interface/pokedex";
-import { AppState } from "pokedex@/store/app.store";
-import { increment, setCount } from "pokedex@/store/pokedexSlice/pokedexSlice";
-import styles from "pokedex@/styles/Home.module.css";
-import { useDispatch, useSelector } from "react-redux";
-
+import { useRouter } from "next/router";
+import styles from "./../styles/Home.module.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home(): React.ReactNode {
-  const dispatch: Dispatch<UnknownAction> = useDispatch();
-  const { name, count } = useSelector((state: AppState): PokedexSliceProps => state.pokedex);
+  const { push } = useRouter();
+  function goToPokemon(): void {
+    push("/pokemon");
+  }
+
   return (
     <>
       <Head>
@@ -30,11 +30,19 @@ export default function Home(): React.ReactNode {
         />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <h1>
-          Welcome to {name}!! {count}
-        </h1>
-        <button onClick={() => dispatch(increment({}))}>Dispatch</button>
-        <button onClick={() => dispatch(setCount({ count: 20 }))}>Update State</button>
+        <Typography
+          variant="h1"
+          component="h2"
+        >
+          Welcome to Pokemons
+        </Typography>
+        <Button
+          type="button"
+          variant="contained"
+          onClick={goToPokemon}
+        >
+          Go to Pokemons List
+        </Button>
       </main>
     </>
   );

@@ -1,9 +1,9 @@
 import type { AppProps } from "next/app";
-import { wrapper } from "pokedex@/store/app.store";
-import "pokedex@/styles/globals.css";
 import { Provider } from "react-redux";
+import { wrapper } from "./../pages/store";
+import "./../styles/globals.css";
 
-export default function App({ Component, pageProps }: AppProps): React.ReactNode {
+export default function App({ Component, ...pageProps }: AppProps) {
   const { store } = wrapper.useWrappedStore(pageProps);
   return (
     <Provider store={store}>
